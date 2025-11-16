@@ -55,3 +55,5 @@ class ToryxError extends Error {
         return JSON.stringify(this.toJson(), null, 2);
     }
 }
+
+export default ToryxError;
