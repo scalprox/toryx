@@ -1,0 +1,3 @@
+interface ToryxConfig {
+    detailedLogs: boolean;
+}
