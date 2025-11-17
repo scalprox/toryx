@@ -1,3 +1,5 @@
+import type ToryxError from "../errors/toryxError";
+
 export type Result<R, E extends ToryxError = ToryxError> = Ok<R> | Err<E>
 
 export interface Ok<T> {
