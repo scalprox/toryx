@@ -1,15 +1,15 @@
-import type ToryxError from "../errors/toryxError";
+import type {ToryxError} from "../errors/toryxError";
 
 export type Result<R, E extends ToryxError = ToryxError> = Ok<R> | Err<E>
 
 export interface Ok<T> {
     readonly ok: true;
-    value: T;
+    readonly value: T;
 }
 
 export interface Err<E> {
     readonly ok: false;
-    error: E;
+    readonly error: E;
 }
 
 /**

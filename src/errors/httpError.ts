@@ -1,4 +1,4 @@
-import ToryxError from "./toryxError";
+import {ToryxError} from "./toryxError";
 import {httpStatusCode} from "../dictionaries/httpStatusCode";
 
 type HttpStatusName = keyof typeof httpStatusCode;

@@ -1,7 +1,7 @@
 import {Err, Ok, type Result} from "../core/result";
 import {HttpError} from "../errors/httpError";
 import {httpStatusCode} from "../dictionaries/httpStatusCode";
-import ToryxError from "../errors/toryxError";
+import {ToryxError} from "../errors/toryxError";
 
 /**
  * Safely performs a fetch operation and processes the response.
@@ -35,7 +35,8 @@ export async function safeFetch<R>(fn:()=> Promise<Response>): Promise<Result<R,
         const response = await fn();
         if (response.ok) {
             // status code is ok (2xx), return the data
-            return Ok(await response.json())
+            const data = await response.json() as R
+            return Ok(data)
 
         } else {
             // if status code may be an error, return it to the client

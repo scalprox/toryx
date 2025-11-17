@@ -6,7 +6,7 @@ interface ErrorOptions {
     timestamp?: Date
 }
 
-class ToryxError extends Error {
+export class ToryxError extends Error {
     readonly cause?: ErrorOptions['cause']
     readonly context?: ErrorOptions['context']
     readonly isCritical?: ErrorOptions['isCritical']
@@ -55,5 +55,3 @@ class ToryxError extends Error {
         return JSON.stringify(this.toJson(), null, 2);
     }
 }
-
-export default ToryxError;

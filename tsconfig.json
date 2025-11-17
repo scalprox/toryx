@@ -2,12 +2,35 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2020"],
+
+    // Génération des fichiers de déclaration
     "declaration": true,
-    "outDir": "dist",
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // Output
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    // Strict mode
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    // Interop
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    // Code quality
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true
   },
-  "include": ["src"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

@@ -1,6 +1,6 @@
 import {Err, Ok, type Result} from "../core/result";
 import Toryx from "../core/toryx";
-import ToryxError from "../errors/toryxError";
+import {ToryxError} from "../errors/toryxError";
 
 /**
  * Executes an asynchronous function and handles any errors that occur, wrapping the result
