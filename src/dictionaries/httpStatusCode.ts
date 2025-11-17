@@ -60,7 +60,7 @@ export const httpStatusCode = {
     "NOT_FOUND": 404,
 
     //indicates that the method specified in the request-line is known by the origin server but not supported by the target resource.
-    "METHOD_NOT ALLOWED": 405,
+    "METHOD_NOT_ALLOWED": 405,
 
     //Indicates that the target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request. The server is unwilling to supply a default representation.
     "NOT_ACCEPTABLE": 406,
