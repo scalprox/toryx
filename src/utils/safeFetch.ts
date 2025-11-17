@@ -30,20 +30,41 @@ import {ToryxError} from "../errors/toryxError";
  *     }
  * }
  */
-export async function safeFetch<R>(fn:()=> Promise<Response>): Promise<Result<R, HttpError | ToryxError>> {
+export async function safeFetch<R>(fn: () => Promise<Response>): Promise<Result<R, HttpError | ToryxError>> {
     try {
         const response = await fn();
+        const contentType = response.headers.get("content-type")
+        let data: unknown
+
+        if (contentType) {
+            if (contentType.includes("application/json")) {
+                data = await response.json()
+            } else if (contentType.includes("image/") || contentType.includes("application/octet-stream")) {
+                data = await response.blob()
+            } else if (contentType.includes("text/")) {
+                data = await response.text()
+            } else if (response.status === 204) {
+                data = null
+            } else {
+                data = await response.text()
+            }
+        } else {
+            data = await response.text()
+        }
+
         if (response.ok) {
             // status code is ok (2xx), return the data
-            const data = await response.json() as R
-            return Ok(data)
+            return Ok(data as R)
 
         } else {
             // if status code may be an error, return it to the client
             const statusCodeName = Object.entries(httpStatusCode).find(([_, value]) => value === response.status) as [keyof typeof httpStatusCode, number];
             if (statusCodeName) {
-                // status code name is found in the dictionaries.
-                const Error = new HttpError(`Error while fetching : (${response.url})`, {statusCodeName: statusCodeName[0]})
+                // status code name is found in the dictionary.
+                const Error = new HttpError(`Error while fetching : (${response.url})`, {
+                    statusCodeName: statusCodeName[0],
+                    body: data
+                })
                 return Err<HttpError>(Error)
             }
 

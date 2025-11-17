@@ -31,27 +31,27 @@ describe("safeFetch", () => {
 
         expect(result.ok).toBe(true)
 
-        if(result.ok){
+        if (result.ok) {
             expect(result.value.length).toBeGreaterThan(0)
 
             const firstUser = result.value[0]
 
             expect(firstUser).toBeDefined()
-            if(firstUser){
+            if (firstUser) {
                 expect(typeof firstUser.id).toBe("number")
             }
         }
     });
 
-    it('should return an error 404', async() => {
+    it('should return an error 404', async () => {
         const result = await safeFetch(() => fetch("https://jsonplaceholder.typicode.com/users/1000"))
 
         expect(result.ok).toBe(false)
 
-        if(!result.ok){
+        if (!result.ok) {
             expect(result.error).toBeInstanceOf(HttpError)
 
-            if(result.error instanceof HttpError){
+            if (result.error instanceof HttpError) {
                 expect(result.error.statusCode).toBe(404)
                 expect(result.error.statusCodeName).toBe("NOT_FOUND")
             }
