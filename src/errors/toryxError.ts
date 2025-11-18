@@ -1,3 +1,5 @@
+import Toryx from "../core/toryx";
+
 interface ErrorOptions {
     cause?: Error | unknown
     context?: Record<string, unknown>
@@ -38,8 +40,7 @@ export class ToryxError extends Error {
             isCritical: this.isCritical,
             code: this.code,
             timestamp: this.timestamp,
-            // Todo : manage this if user select display extended error on true
-            // ...(process.env.NODE_ENV === 'development' && { stack: this.stack })
+            ...(Toryx.getConfig().detailedLogs && { stack: this.stack })
         };
 
         if (this.cause) {

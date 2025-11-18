@@ -1,12 +1,31 @@
 {
-  "name": "toryx",
+  "name": "@toryx/core",
   "version": "1.0.0",
-  "description": "",
+  "description": "Type-safe error handling and async operations for TypeScript",
   "main": "/dist/index.js",
   "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./express": {
+      "types": "./dist/express/index.d.ts",
+      "import": "./dist/express/index.mjs",
+      "require": "./dist/express/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsup src/index.ts",
-    "test": "vitest run"
+    "build": "tsup",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build",
+    "publish:npm": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -34,5 +53,8 @@
     "tsup": "^8.1.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.10"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
