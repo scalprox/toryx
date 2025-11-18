@@ -13,7 +13,7 @@ import {ToryxError} from "../errors/toryxError";
  * @throws {ToryxError}
  *
  * @example
- * const users = await safeAsync(getUsers);
+ * const users = await safeAsync(()=>getUsers);
  *
  * if(users.ok){
  *     // handle the result here
