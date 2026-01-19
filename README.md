@@ -78,9 +78,7 @@ if (result.ok) {
 ```typescript
 import { safeFetch, HttpError, ToryxError } from "@toryx/core"
 
-const result = await safeFetch(() => 
-    fetch("https://api.example.com/users")
-)
+const result = await safeFetch(fetch("https://api.example.com/users"))
 
 if (result.ok) {
     // Successful response (2xx status codes)
@@ -331,9 +329,7 @@ app.get("/users/:id", async (req, res, next) => {
 
 // Route with safeFetch
 app.get("/external-data", async (req, res, next) => {
-    const result = await safeFetch(() => 
-        fetch("https://api.example.com/data")
-    )
+    const result = await safeFetch(fetch("https://api.example.com/data"))
     
     if (result.ok) {
         res.json(result.value)
