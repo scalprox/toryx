@@ -27,7 +27,7 @@ interface User {
 
 describe("safeFetch", () => {
     it('should return Users array', async () => {
-        const result = await safeFetch<User[]>(() => fetch("https://jsonplaceholder.typicode.com/users"))
+        const result = await safeFetch<User[]>(fetch("https://jsonplaceholder.typicode.com/users"))
 
         expect(result.ok).toBe(true)
 
@@ -44,7 +44,7 @@ describe("safeFetch", () => {
     });
 
     it('should return an error 404', async () => {
-        const result = await safeFetch(() => fetch("https://jsonplaceholder.typicode.com/users/1000"))
+        const result = await safeFetch(fetch("https://jsonplaceholder.typicode.com/users/1000"))
 
         expect(result.ok).toBe(false)
 

@@ -24,7 +24,7 @@ npm install toryx
 Once the package is installed, you need to import `toryxInit` to configure Toryx according to your needs:
 
 ```typescript
-import { toryxInit } from "toryx"
+import { toryxInit } from "@toryx/core"
 
 toryxInit({
     detailedLogs: true
@@ -43,7 +43,7 @@ toryxInit({
 **Usage:**
 
 ```typescript
-import { safeAsync } from "toryx"
+import { safeAsync } from "@toryx/core"
 
 async function getUsers() {
     // Your async operation
@@ -76,11 +76,9 @@ if (result.ok) {
 **Usage:**
 
 ```typescript
-import { safeFetch, HttpError, ToryxError } from "toryx"
+import { safeFetch, HttpError, ToryxError } from "@toryx/core"
 
-const result = await safeFetch(() => 
-    fetch("https://api.example.com/users")
-)
+const result = await safeFetch(fetch("https://api.example.com/users"))
 
 if (result.ok) {
     // Successful response (2xx status codes)
@@ -129,7 +127,7 @@ interface ErrorOptions {
 **Usage:**
 
 ```typescript
-import { ToryxError } from "toryx"
+import { ToryxError } from "@toryx/core"
 
 // Basic usage
 throw new ToryxError("Something went wrong")
@@ -174,7 +172,7 @@ class HttpError extends ToryxError {
 Toryx provides convenient factory methods for common HTTP errors:
 
 ```typescript
-import { HttpError } from "toryx"
+import { HttpError } from "@toryx/core"
 
 // 404 Not Found
 throw HttpError.notFound({ message: "User not found" })
@@ -241,7 +239,7 @@ Toryx provides an Express middleware for centralized error handling in your appl
 
 ```typescript
 import express from "express"
-import { createErrorMiddleware } from "toryx/express"
+import { createErrorMiddleware } from "@toryx/core/express"
 
 const app = express()
 
@@ -294,7 +292,8 @@ Here's a complete example combining all features:
 
 ```typescript
 import express from "express"
-import { toryxInit, safeAsync, safeFetch, HttpError, createErrorMiddleware } from "toryx"
+import { toryxInit, safeAsync, safeFetch, HttpError } from "@toryx/core"
+import { createErrorMiddleware } from "@toryx/core/express"
 
 // Initialize Toryx
 toryxInit({
@@ -330,9 +329,7 @@ app.get("/users/:id", async (req, res, next) => {
 
 // Route with safeFetch
 app.get("/external-data", async (req, res, next) => {
-    const result = await safeFetch(() => 
-        fetch("https://api.example.com/data")
-    )
+    const result = await safeFetch(fetch("https://api.example.com/data"))
     
     if (result.ok) {
         res.json(result.value)
@@ -365,7 +362,9 @@ Toryx is written in TypeScript and provides full type safety:
 // Result type is inferred
 const result = await safeAsync(() => getUsers())
 // result.value is typed as User[] if getUsers returns User[]
+```
 
+```typescript
 // Generic type parameter
 const result = await safeFetch<User[]>(() => 
     fetch("/api/users")

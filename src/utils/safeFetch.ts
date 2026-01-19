@@ -8,15 +8,14 @@ import {ToryxError} from "../errors/toryxError";
  * This function ensures that HTTP response handling is robust,
  * returning appropriate results or errors for different scenarios.
  *
- * @param {() => Promise<Response>} fn - A function that returns a promise for a fetch response.
+ * @param {Promise<Response>} promise - A promise for a fetch response.
  * @return {Promise<Result<R, HttpError | ToryxError>>} A promise resolving to a `Result` object that contains the fetched data
  *                               or an error object for failure cases.
  * @example
  * const result = await safeFetch(() => fetch("https://myserver.com/api/users"));
  *
  * if(result.ok){
- *     // the result of the request is available
- *     result.value
+ *     // the result of the request is available result.value
  * }else{
  *     // here an error is received if the response is not 2xx.
  *     // if the server response is 401, 403, 500... You will have `HttpError` in result.error
@@ -30,9 +29,9 @@ import {ToryxError} from "../errors/toryxError";
  *     }
  * }
  */
-export async function safeFetch<R>(fn: () => Promise<Response>): Promise<Result<R, HttpError | ToryxError>> {
+export async function safeFetch<R>(promise: Promise<Response>): Promise<Result<R, HttpError | ToryxError>> {
     try {
-        const response = await fn();
+        const response = await Promise.resolve(promise);
         const contentType = response.headers.get("content-type")
         let data: unknown
 
@@ -73,7 +72,7 @@ export async function safeFetch<R>(fn: () => Promise<Response>): Promise<Result<
             return Err(Error)
         }
     } catch (error) {
-        const Error = new ToryxError(`Unable to fetch data from : (${fn.name})`, {cause: error})
+        const Error = new ToryxError("Unable to fetch data", {cause: error})
         return Err(Error)
     }
 }

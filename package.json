@@ -1,7 +1,7 @@
 {
   "name": "@toryx/core",
   "version": "1.0.0",
-  "description": "Type-safe error handling and async operations for TypeScript",
+  "description": "Type-safe error handling and async operations for TypeScript And Javascript",
   "main": "/dist/index.js",
   "type": "module",
   "files": [
