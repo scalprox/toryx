@@ -16,7 +16,7 @@ Toryx is a secure and robust JavaScript/TypeScript library for advanced error ha
 Install the package from npm:
 
 ```bash
-npm install toryx
+npm install @toryx/core
 ```
 
 ## Configuration
